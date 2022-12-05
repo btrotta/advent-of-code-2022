@@ -12,3 +12,12 @@ whenever `(ind2 - 1) % 3 == ind1`. This simplifies the calculation of scores and
 ## Day 3
 Convert the strings to lists and use `np.intersect1d` to find the intersection.
 
+## Day 4
+For part 1, `(a, b)` contains `(x, y)` if `a <= x` and `b >= y`. For part 2, 
+`(a, b)` and `(x, y)` intersect if `max(a, x) <= min(b, y)`.
+
+## Day 5
+Represent the cargo stacks as lists. For part 1, use `pop` to move the top items one by one. For part 2, 
+remove the items as a block.
+
+
