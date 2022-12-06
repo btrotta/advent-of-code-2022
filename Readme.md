@@ -20,4 +20,7 @@ For part 1, `(a, b)` contains `(x, y)` if `a <= x` and `b >= y`. For part 2,
 Represent the cargo stacks as lists. For part 1, use `pop` to move the top items one by one. For part 2, 
 remove the items as a block.
 
+## Day 6
+For part 1, iterate over the string, starting at position 4. Get the last 4 characters, convert to a set, and check
+whether the length of the set is equal to 4. Part 2 is similar, except using 14 characters.
 
