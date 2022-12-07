@@ -24,3 +24,7 @@ remove the items as a block.
 For part 1, iterate over the string, starting at position 4. Get the last 4 characters, convert to a set, and check
 whether the length of the set is equal to 4. Part 2 is similar, except using 14 characters.
 
+## Day 7
+Parse the directory structure into a graph. Traverse the graph depth-first to find the total size of each directory (so that
+we visit all the sub-directories and add their sizes to the parent before visiting the parent). 
+Note that there are distinct directories (at different places in the directory structure) having the same names!
