@@ -18,7 +18,7 @@ index = 1
 node_dict = {}
 
 curr = root
-for i, line in enumerate(arr):
+for line in arr:
     if line[0] == "$":
         if line[1] == "cd":
             if line[2] == "..":
@@ -41,7 +41,6 @@ for i, line in enumerate(arr):
             node_dict[index] = Node(index, parent=curr, size=size)
             curr.contents[filename] = node_dict[index]
             index += 1
-
 
 ans = 0
 to_visit = [root]
