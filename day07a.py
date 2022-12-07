@@ -16,7 +16,6 @@ class Node:
 root = Node(0)
 index = 1
 node_dict = {}
-
 curr = root
 for line in arr:
     if line[0] == "$":
