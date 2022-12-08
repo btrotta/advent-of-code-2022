@@ -19,15 +19,11 @@ def get_scores(a):
 
 scores = np.ones(arr.shape, int)
 for i in range(arr.shape[0]):
-    curr_scores = get_scores(arr[i, :])
-    scores[i, :] *= curr_scores
-    curr_scores = get_scores(np.flip(arr[i, :]))
-    scores[i, :] *= np.flip(curr_scores)
+    scores[i, :] *= get_scores(arr[i, :])
+    scores[i, :] *= np.flip(get_scores(np.flip(arr[i, :])))
 for i in range(arr.shape[1]):
-    curr_scores = get_scores(arr[:, i])
-    scores[:, i] *= curr_scores
-    curr_scores = get_scores(np.flip(arr[:, i]))
-    scores[:, i] *= np.flip(curr_scores)
+    scores[:, i] *= get_scores(arr[:, i])
+    scores[:, i] *= np.flip(get_scores(np.flip(arr[:, i])))
 
 best_score = np.max(scores)
 

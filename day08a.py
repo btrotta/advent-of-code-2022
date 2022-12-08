@@ -1,5 +1,4 @@
 from utilities import *
-from functools import reduce
 
 arr = parse_multi_int(sep="")
 arr = np.array(arr)
@@ -16,13 +15,12 @@ def get_visible(a, index):
 
 
 index = np.reshape(np.arange(arr.size), arr.shape)
-vis_directions = []
+visible = set()
 for i in range(arr.shape[0]):
-    vis_directions.append(get_visible(arr[i, :], index[i, :]))
-    vis_directions.append(get_visible(np.flip(arr[i, :]), np.flip(index[i, :])))
+    visible = visible.union(get_visible(arr[i, :], index[i, :]))
+    visible = visible.union(get_visible(np.flip(arr[i, :]), np.flip(index[i, :])))
 for i in range(arr.shape[1]):
-    vis_directions.append(get_visible(arr[:, i], index[:, i]))
-    vis_directions.append(get_visible(np.flip(arr[:, i]), np.flip(index[:, i])))
+    visible = visible.union(get_visible(arr[:, i], index[:, i]))
+    visible = visible.union(get_visible(np.flip(arr[:, i]), np.flip(index[:, i])))
 
-visible = reduce(np.union1d, vis_directions)
 print(len(visible))
