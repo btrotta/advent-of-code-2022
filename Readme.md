@@ -30,9 +30,9 @@ we visit all the sub-directories and add their sizes to the parent before visiti
 Note that there are distinct directories (at different places in the directory structure) having the same names!
 
 ## Day 8
-For Part 1, iterate over each row and column in both directions, keeping track of the maximum height seen so far. A 
+For part 1, iterate over each row and column in both directions, keeping track of the maximum height seen so far. A 
 tree is visible if its height is less than current maximum. Using numpy allows us to manipulate the arrays easily.
-For Part 2, the most obvious solution has complexity $O(n^3)$ where
+For part 2, the most obvious solution has complexity $O(n^3)$ where
 $n$ is the number of rows/columns: there are $n^2$ trees, and, for a given tree, we can iterate over the indexes before 
 it in the same row/column to find the 
 last one having equal or greater height. However, since the set of possible heights is small (there are only 10), we can 
