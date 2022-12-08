@@ -1,4 +1,4 @@
-from utilities import *
+from utilities import parse_single_string
 
 arr = parse_single_string()
 

@@ -1,4 +1,4 @@
-from utilities import *
+from utilities import parse_multi_string
 
 arr = parse_multi_string()
 

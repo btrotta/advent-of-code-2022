@@ -1,4 +1,5 @@
-from utilities import *
+from utilities import parse_multi_int
+import numpy as np
 
 arr = parse_multi_int(sep="")
 arr = np.array(arr)

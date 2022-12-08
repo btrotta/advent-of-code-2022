@@ -1,4 +1,5 @@
-from utilities import *
+from utilities import parse_multi_string
+from collections import defaultdict
 
 arr = parse_multi_string()
 

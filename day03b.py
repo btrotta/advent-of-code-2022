@@ -1,5 +1,6 @@
-from utilities import *
+from utilities import parse_single_string, ALPHABET
 from functools import reduce
+import numpy as np
 
 arr = parse_single_string()
 
