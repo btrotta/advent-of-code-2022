@@ -37,3 +37,8 @@ $n$ is the number of rows/columns: there are $n^2$ trees, and, for a given tree,
 it in the same row/column to find the 
 last one having equal or greater height. However, since the set of possible heights is small (there are only 10), we can 
 achieve a more efficient $O(n^2)$ solution by using a lookup table to keep track of the last index each height was seen.
+
+## Day 9
+For part 1, for each move we can immediately calculate the final position of the head, then calculate the tail's 
+trajectory given its current position and the head's new position. For part 2, this approach no longer works, so we need 
+to process one step at a time.
