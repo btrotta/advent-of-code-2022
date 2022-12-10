@@ -42,3 +42,8 @@ achieve a more efficient $O(n^2)$ solution by using a lookup table to keep track
 For part 1, for each move we can immediately calculate the final position of the head, then calculate the tail's 
 trajectory given its current position and the head's new position. For part 2, this approach no longer works, so we need 
 to process one step at a time.
+
+## Day 10
+Note that in an `addx` instruction, `X` doesn't get updated until _after_ 2 cycles
+are complete, so all processing that happens during the 2 cycles (calculating the signal strength in part 1, or 
+updating the display in part 2) should happen before `X` is incremented.
