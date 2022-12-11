@@ -47,3 +47,12 @@ to process one step at a time.
 Note that in an `addx` instruction, `X` doesn't get updated until _after_ 2 cycles
 are complete, so all processing that happens during the 2 cycles (calculating the signal strength in part 1, or 
 updating the display in part 2) should happen before `X` is incremented.
+
+
+## Day 11
+For part 1, just simulate the rounds. For part 2, the worry levels become very large and consume a lot of memory. 
+We can handle this by instead working with the worry level modulo a certain modulus. 
+Note that each monkey's test is whether the worry level is divisible 
+by some factor. This will give the same result if we replace the worry level by its modulus modulo `m`, where `m` is 
+any multiple of the monkey's factor. Therefore we choose `m` to be the lowest common multiple (LCM) of all the monkeys' 
+test factors. Before throwing each item, we replace its worry level by the worry level modulo this LCM.
