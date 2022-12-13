@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import defaultdict, deque
 import numpy as np
 import heapq
 import matplotlib
@@ -87,20 +87,20 @@ def shortest_path(edge_dict, from_node, to_node):
     # update priorities as described here:
     # https://docs.python.org/3.6/library/heapq.html#priority-queue-implementation-notes
     nodes = list(edge_dict.keys())
-    unvisited = [[0, np.inf, n] for n in nodes]
-    unvisited[0] = [0, 0, from_node]
+    unvisited = [[0, 0, from_node]] + [[0, np.inf, n] for n in nodes if n != from_node]
     heapq.heapify(unvisited)
     unvisited_map = {n: unvisited[i] for i, n in enumerate(nodes)}
     dist_map = {n: np.inf for n in nodes}
     dist_map[from_node] = 0
-
     while len(unvisited_map) > 0:
         _, dist, node = heapq.heappop(unvisited)
+        if node not in unvisited_map:
+            continue
         for neighbour in edge_dict[node]:
             if neighbour in unvisited_map:
                 new_dist = dist_map[node] + edge_dict[node][neighbour]
-                if new_dist < unvisited_map[neighbour][1]:
-                    old_queue_member = unvisited_map.pop(neighbour)
+                if new_dist < dist_map[neighbour]:
+                    old_queue_member = unvisited_map[neighbour]
                     old_queue_member[0] = 1  # mark invalid
                     new_queue_member = [0, new_dist, neighbour]
                     heapq.heappush(unvisited, new_queue_member)
@@ -111,6 +111,23 @@ def shortest_path(edge_dict, from_node, to_node):
         unvisited_map.pop(node)
 
     return dist_map[to_node]
+
+
+def shortest_path_unweighted(edges, start, end):
+    # use breadth-first search
+    # edges is a dict mapping each edge to a list of its neighbours
+    visited = set()
+    to_visit = deque([[start, 0]])
+    while len(to_visit) > 0:
+        curr, dist = to_visit.popleft()
+        if curr not in visited:
+            visited.add(curr)
+            for neighbour in edges[curr]:
+                if neighbour == end:
+                    return dist + 1
+                if neighbour not in visited:
+                    to_visit.append([neighbour, dist + 1])
+    return np.inf
 
 
 def connected_components(edge_dict):
