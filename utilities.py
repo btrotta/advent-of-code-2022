@@ -173,4 +173,3 @@ def show_image(arr):
 
 
 ALPHABET = list("abcdefghijklmnopqrstuvwxyz")
-

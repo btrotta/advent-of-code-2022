@@ -59,3 +59,7 @@ test factors. Before throwing each item, we replace its worry level by the worry
 ## Day 12
 Convert the array to integer values to make comparing elevations easier. To find the shortest paths, use breadth-first
 search.
+
+
+## Day 13
+Represent the nested lists as trees, and use a recursive function to compare them according to the rules.
