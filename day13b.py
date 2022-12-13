@@ -77,6 +77,6 @@ def compare(t1, t2):
         return compare(t1, t2)
 
 
-trees = [str_to_tree(s) for ind, s in enumerate(strings)]
+trees = [str_to_tree(s) for s in strings]
 sorted_ind = sorted(range(len(trees)), key=cmp_to_key(lambda i, j: compare(trees[i], trees[j])))
 print((sorted_ind.index(len(trees) - 1) + 1) * (sorted_ind.index(len(trees) - 2) + 1))
