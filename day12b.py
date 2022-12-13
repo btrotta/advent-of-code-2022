@@ -20,5 +20,5 @@ for i in range(len(arr)):
             if (x >= 0) and (x < len(arr)) and (y >= 0) and (y < len(arr[0])) and (arr[x][y] - arr[i][j] <= 1):
                 edges[i, j].append((x, y))
 
-starts = [[i, j] for i in range(len(arr)) for j in range(len(arr[0])) if arr[i][j] == 0]
-print(min([shortest_path_unweighted(edges, tuple(start), tuple(end)) for start in starts]))
+starts = [(i, j) for i in range(len(arr)) for j in range(len(arr[0])) if arr[i][j] == 0]
+print(min([shortest_path_unweighted(edges, start, end) for start in starts]))
