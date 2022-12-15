@@ -1,5 +1,3 @@
-from time import time
-t = time()
 from utilities import parse_single_string
 
 arr = parse_single_string()
@@ -62,4 +60,3 @@ for y in range(max_coord):
         break
 
 print(ans[0] * 4000000 + ans[1])
-print(time() - t)
