@@ -20,7 +20,7 @@ for a in arr:
     neighbours = [x.replace(",", "") for x in a[9:]]
     valves[name] = Valve(name, flow, neighbours)
 
-# duplicate valves having flow > 0 to represent opening valve
+# duplicate set of valves to represent opening valve
 valves_to_open = {}
 for name, v in valves.items():
     if v.flow > 0:
@@ -31,28 +31,27 @@ for name, v in valves.items():
         v.neighbours = v.neighbours + [new_name]
 valves.update(valves_to_open)
 
-
 # keys of best are the valves that can be reached by time t
 # best[v] = (best_flow, open_valves) where best_flow is the optimal flow that can be
 # obtained by a path ending at valve v at time t, and open_valves is the set of valves
 # opened to obtain that flow
-best = {("AA", tuple()): -1}
+best = {"AA": (0, set())}
 for t in range(1, 30):
     new_best = deepcopy(best)
-    for v_name, open_valves in best:
+    for v_name in best:
+        v = valves[v_name]
+        best_flow_v, open_valves = best[v_name]
         if len(open_valves) == len(valves_to_open):
             continue
-        v = valves[v_name]
-        best_flow_v = best.get((v_name, open_valves), -1)
         for n_name in v.neighbours:
             n = valves[n_name]
             if (n_name in open_valves) and n.is_open:
                 continue
-            new_total_flow = max(0, best_flow_v) + n.flow * (30 - t)
-            new_open_valves = tuple(sorted(open_valves + (n_name,))) if n.is_open else open_valves
-            best_flow_n = new_best.get((n_name, new_open_valves), -1)
+            new_total_flow = best_flow_v + n.flow * (30 - t)
+            new_open_valves = open_valves.union(set([n_name])) if n.is_open else open_valves
+            best_flow_n = new_best.get(n_name, (-1, set()))[0]
             if new_total_flow > best_flow_n:
-                new_best[n_name, new_open_valves] = new_total_flow
+                new_best[n_name] = new_total_flow, new_open_valves
     best = new_best
 
-print(max(best.values()))
+print(max(best.values())[0])
