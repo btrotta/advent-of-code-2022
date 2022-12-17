@@ -67,10 +67,15 @@ Represent the nested lists as trees, and use a recursive function to compare the
 Represent coordinates as complex numbers. Use a set to keep track of filled positions.
 
 ## Day 15
-Let $s = (s_0, s_1) and $b = (b_0, b_1)$ be the coordinates of a given sensor and its closest beacon. The distance 
+Part 1: Let $s = (s_0, s_1) and $b = (b_0, b_1)$ be the coordinates of a given sensor and its closest beacon. The distance 
 between them is $d = \textup{abs}(s_0 - b_0) + \textup{abs}(s_1 - b1)$. For a given $y$, a point
 $(x, y)$ is closer to $s$ than $b$ if $\textup{abs}(x - s_0) < d - abs(y - s_1)$. So there cannot be any beacons 
-in the range $[s_0 - (d - \textup{abs}(y - s_1)), s_0 + (d - \textup{abs}(y - s_1))]$. For a given y, we need to calculate
-the union of all these ranges. We can do this efficiently by ordering the ranges by their left edge. For part 1, we 
-just calculate the size of this union (and remove any known beacons with the given y coordinate). For part 2, loop over 
-all possible y coordinates, and check all x coords not in the union of ranges.
+in the range $[s_0 - (d - \textup{abs}(y - s_1)), s_0 + (d - \textup{abs}(y - s_1))]$. We need to calculate
+the union of all these ranges. We can do this efficiently by ordering the ranges by their left edge.
+
+Part 2: Since we are told there is only one possible location for the unknown beacon, it must be either in one
+of the corners of the allowable range, or adjoining a point where 2 empty ranges intersect. We can find these 
+intersections using linear algebra.
+
+# Day 16
+This is a dynamic programming problem. Iterate over timesteps. For each timestep and valve, calculate the optimal 

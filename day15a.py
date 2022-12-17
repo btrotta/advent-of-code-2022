@@ -1,32 +1,20 @@
 from utilities import parse_single_string
 
 arr = parse_single_string()
-
-
-def get_xy(s):
-    words = s.split(" ")
-    for w in words:
-        if w.startswith("x="):
-            x = int(w[2:].replace(",", ""))
-        elif w.startswith("y="):
-            y = int(w[2:].replace(",", ""))
-    return (x, y)
-
-
 sensors = []
 beacons = []
 for a in arr:
-    s, b = a.split(":")
-    sensors.append(get_xy(s))
-    beacons.append(get_xy(b))
+    words = a.split(" ")
+    sensors.append(complex(int(words[2][2:-1]), int(words[3][2:-1])))
+    beacons.append(complex(int(words[8][2:-1]), int(words[9][2:])))
 
 y = 2000000
 empty_ranges = []
 for s, b in zip(sensors, beacons):
-    dist = abs(b[0] - s[0]) + abs(b[1] - s[1])
-    max_x_dist = dist - abs(y - s[1])
+    dist = abs(b.real - s.real) + abs(b.imag - s.imag)
+    max_x_dist = dist - abs(y - s.imag)
     if max_x_dist >= 0:
-        empty_ranges.append([s[0] - max_x_dist, s[0] + max_x_dist + 1])
+        empty_ranges.append([s.real - max_x_dist, s.real + max_x_dist + 1])
 
 unique_beacons = set(beacons)
 empty_ranges = sorted(empty_ranges)
@@ -39,6 +27,6 @@ while i < len(empty_ranges):
         i += 1
         right = max(right, empty_ranges[i][1])
     else:
-        ans += right - left - len(set([b[0] for b in unique_beacons if b[1] == y and b[0] >= left and b[1] < right]))
+        ans += right - left - len(set([b.real for b in unique_beacons if b.imag == y and b.real >= left and b.imag < right]))
         i += 1
-print(ans)
+print(int(ans))

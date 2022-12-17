@@ -1,62 +1,57 @@
 from utilities import parse_single_string
+import numpy as np
+from itertools import product
 
 arr = parse_single_string()
-
-
-def get_xy(s):
-    words = s.split(" ")
-    for w in words:
-        if w.startswith("x="):
-            x = int(w[2:].replace(",", ""))
-        elif w.startswith("y="):
-            y = int(w[2:].replace(",", ""))
-    return (x, y)
-
-
 sensors = []
 beacons = []
 for a in arr:
-    s, b = a.split(":")
-    sensors.append(get_xy(s))
-    beacons.append(get_xy(b))
+    words = a.split(" ")
+    sensors.append(complex(int(words[2][2:-1]), int(words[3][2:-1])))
+    beacons.append(complex(int(words[8][2:-1]), int(words[9][2:])))
 
 
-def check_range(left, right, y, beacons_set):
-    for x in range(left, right):
-        if (x, y) not in beacons_set:
-            return x
-    return -1
+def distance(a, b):
+    return abs(a.real - b.real) + abs(a.imag - b.imag)
 
 
-unique_beacons = set(beacons)
-max_coord = 4000001
-for y in range(max_coord):
-    empty_ranges = []
-    for s, b in zip(sensors, beacons):
-        dist = abs(b[0] - s[0]) + abs(b[1] - s[1])
-        max_x_dist = dist - abs(y - s[1])
-        if max_x_dist >= 0:
-            empty_ranges.append([s[0] - max_x_dist, s[0] + max_x_dist + 1])
+def find_intersection(s1, d1, s2, d2):
+    intersections = []
+    for s1_real_sign, s1_imag_sign, s2_real_sign, s2_imag_sign in product([1, -1], repeat=4):
+        rhs1 = d1 + s1_real_sign * s1.real + s1_imag_sign * s1.imag
+        rhs2 = d2 + s2_real_sign * s2.real + s2_imag_sign * s2.imag
+        X = np.matrix([[s1_real_sign, s1_imag_sign], [s2_real_sign, s2_imag_sign]])
+        y = np.matrix([[rhs1], [rhs2]])
+        try:
+            x, y = np.linalg.solve(X, y)
+            intersections.append(complex(x[0][0], y[0][0]))
+        except:
+            pass
+    return intersections
 
-    ans = None
-    if len(empty_ranges) > 0:
-        empty_ranges = sorted(empty_ranges)
-        curr = empty_ranges[0]
-        i = 0
-        if (min_left := empty_ranges[0][0]) > 0 and (x := check_range(0, min_left, y, unique_beacons)) != -1:
-            ans = (x, y)
-        while i < len(empty_ranges):
-            left, right = empty_ranges[i]
-            while i + 1 < len(empty_ranges) and empty_ranges[i + 1][0] <= right:
-                i += 1
-                right = max(right, empty_ranges[i][1])
-            else:
-                i += 1
-                if i < len(empty_ranges) and (x := check_range(right, empty_ranges[i][0], y, unique_beacons)) != -1:
-                    ans = (x, y)
-        if right < max_coord and (x := check_range(right, max_coord, y, unique_beacons)) != -1:
-            ans = (x, y)
+
+distances = [distance(s, b) for s, b in zip(sensors, beacons)]
+max_coord = 4000000
+ans = None
+# check corners of range
+for curr in [complex(0, 0), complex(0, max_coord), complex(max_coord, 0), complex(max_coord, max_coord)]:
+    if all([distance(curr, s) > d for s, d in zip(sensors, distances)]):
+        ans = curr
+        break
+# check intersections
+for s1, d1 in zip(sensors, distances):
     if ans is not None:
         break
+    for s2, d2 in zip(sensors, distances):
+        if ans is not None:
+            break
+        intersections = find_intersection(s1, d1, s2, d2)
+        for a in intersections:
+            for increment in [1, -1, 0+1j, 0-1j, 1+1j, 1-1j, -1+1j, -1-1j]:
+                curr = a + increment
+                in_range = curr.real >= 0 and curr.imag >= 0 and curr.real <= max_coord and curr.imag <= max_coord
+                if in_range and all([distance(curr, s) > d for s, d in zip(sensors, distances)]):
+                        ans = curr
+                        break
 
-print(ans[0] * 4000000 + ans[1])
+print(int(ans.real * 4000000 + ans.imag))
