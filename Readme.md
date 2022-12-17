@@ -78,4 +78,7 @@ of the corners of the allowable range, or adjoining a point where 2 empty ranges
 intersections using linear algebra.
 
 # Day 16
-This is a dynamic programming problem. Iterate over timesteps. For each timestep and valve, calculate the optimal 
+This is a dynamic programming problem. Iterate over timesteps. For each timestep t, update a dictionary
+where the keys are the valves that can be reached by this timestep and the value associated with a valve v is the pair
+consisting of (1) the optimal flow that can be obtained by a path ending at valve v at time t,
+(2) and the set of valves opened to obtain that flow.
