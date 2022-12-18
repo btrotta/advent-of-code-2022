@@ -90,3 +90,11 @@ new floor. If we do this, after running the simulation for some time we see that
 defined as the type of rock falling, the index of the jet pattern, and the location of the currently fallen rocks on 
 the floor). Then, since we know what happens during this repeating section, we can loop over this repeating part without
 actually simulating each rock fall.
+
+
+## Day 18
+For part 1, for each cube, count how many of the adjoining cubes are in the droplet. For part 2, consider a graph where 
+each empty point (i.e. each point not part of the droplet) is a node, and the edges connect adjoining empty points. 
+(It suffices to  consider all empty points that are at within 1 unit of the minimum and maximum extent of the droplet in each dimension.) Find 
+the connected components of this graph. Then iterate over these components to find the unique component containing a point outside 
+the droplet. All other components are interior to the droplet.
