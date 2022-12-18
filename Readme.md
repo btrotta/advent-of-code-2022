@@ -77,8 +77,16 @@ Part 2: Since we are told there is only one possible location for the unknown be
 of the corners of the allowable range, or adjoining a point where 2 empty ranges intersect. We can find these 
 intersections using linear algebra.
 
-# Day 16
+## Day 16
 This is a dynamic programming problem. Iterate over timesteps. For each timestep t, update a dictionary
 where the keys are the valves that can be reached by this timestep and the value associated with a valve v is the pair
 consisting of (1) the optimal flow that can be obtained by a path ending at valve v at time t,
 (2) and the set of valves opened to obtain that flow.
+
+## Day 17
+For part 1, just run the simulation. For part 2, notice that after some time, the rocks will fill the chamber so that 
+it's impossible for any rocks to land below some vertical level. When this happens, we can redefine this level as the 
+new floor. If we do this, after running the simulation for some time we see that the state repeats (where state is 
+defined as the type of rock falling, the index of the jet pattern, and the location of the currently fallen rocks on 
+the floor). Then, since we know what happens during this repeating section, we can loop over this repeating part without
+actually simulating each rock fall.
