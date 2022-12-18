@@ -2,7 +2,7 @@ from utilities import parse_multi_string
 
 jets = parse_multi_string(sep="")[0]
 
-# left and right and -ve and +ve i
+# left and right are -ve and +ve i
 # down is -ve j
 pattern_heights = [0, 2, 2, 3, 1]
 pattern_widths = [3, 2, 2, 0, 1]
