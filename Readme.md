@@ -67,7 +67,7 @@ Represent the nested lists as trees, and use a recursive function to compare the
 Represent coordinates as complex numbers. Use a set to keep track of filled positions.
 
 ## Day 15
-Part 1: Let $s = (s_0, s_1) and $b = (b_0, b_1)$ be the coordinates of a given sensor and its closest beacon. The distance 
+Part 1: Let $s = (s_0, s_1)$ and $b = (b_0, b_1)$ be the coordinates of a given sensor and its closest beacon. The distance 
 between them is $d = \textup{abs}(s_0 - b_0) + \textup{abs}(s_1 - b1)$. For a given $y$, a point
 $(x, y)$ is closer to $s$ than $b$ if $\textup{abs}(x - s_0) < d - abs(y - s_1)$. So there cannot be any beacons 
 in the range $[s_0 - (d - \textup{abs}(y - s_1)), s_0 + (d - \textup{abs}(y - s_1))]$. We need to calculate

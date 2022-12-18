@@ -1,6 +1,4 @@
-import numpy as np
-
-from utilities import *
+from utilities import parse_multi_string
 
 jets = parse_multi_string(sep="")[0]
 
