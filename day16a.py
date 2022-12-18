@@ -48,7 +48,7 @@ for t in range(1, 30):
             if (n_name in open_valves) and n.is_open:
                 continue
             new_total_flow = best_flow_v + n.flow * (30 - t)
-            new_open_valves = open_valves.union(set([n_name])) if n.is_open else open_valves
+            new_open_valves = open_valves.union({n_name}) if n.is_open else open_valves
             best_flow_n = new_best.get(n_name, (-1, set()))[0]
             if new_total_flow > best_flow_n:
                 new_best[n_name] = new_total_flow, new_open_valves
