@@ -45,7 +45,6 @@ def move_right(pattern_num, curr_loc, filled):
 
 def move_down(pattern_num, curr_loc, filled):
     new_loc = curr_loc - 1j
-    # height of top row above bottom row
     if (new_loc - complex(0, pattern_heights[pattern_num])).imag < 0:
         return curr_loc
     new_coords = coord_list(pattern_num, new_loc)
