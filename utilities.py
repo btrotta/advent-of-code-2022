@@ -166,6 +166,21 @@ def binary_search(arr, condition):
     else:
         return left + 1
 
+def print_coords(coords):
+    min_real = min([c.real for c in coords])
+    min_imag = min([c.imag for c in coords])
+    new_coords = [c - complex(min_real, min_imag) for c in coords]
+    max_real = int(max([c.real for c in new_coords]))
+    max_imag = int(max([c.imag for c in new_coords]))
+    for row in range(max_imag + 1):
+        curr_print_row = ""
+        for col in range(max_real + 1):
+            if complex(col, max_imag - row) in new_coords:
+                curr_print_row += "#"
+            else:
+                curr_print_row += "-"
+        print(curr_print_row)
+
 
 def show_image(arr):
     arr = np.array(arr)
