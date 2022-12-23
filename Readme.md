@@ -78,10 +78,14 @@ of the corners of the allowable range, or adjoining a point where 2 empty ranges
 intersections using linear algebra.
 
 ## Day 16
-This is a dynamic programming problem. Iterate over timesteps. For each timestep t, update a dictionary
-where the keys are the valves that can be reached by this timestep and the value associated with a valve v is the pair
-consisting of (1) the optimal flow that can be obtained by a path ending at valve v at time t,
-(2) and the set of valves opened to obtain that flow.
+First, find the shortest paths between all pairs of valves with non-zero flow (and the shortest path between the starting
+valve AA and all non-zero flow valves). For part 1, use depth-first search to find the path with length <= 30 having 
+the best flow. The "nodes" in the graph to be searched represent the current location (always either the starting valve AA 
+or a valve with non-zero flow), the current time, the set of currently-opened valves in the current path, and the total 
+flow from currently-opened valves. This search is sped up by pre-calculating shortest distances between non-zero flow valves as 
+described above, and be representing the set of opened valves using a binary encoding. For part 2, do a similar depth-first 
+search as in part 1, but also keep a record of all sets of open valves checked and their flows. 
+Then, iterate over pairs of these sets having empty intersection to find the optimal pair.
 
 ## Day 17
 For part 1, just run the simulation. For part 2, notice that after some time, the rocks will fill the chamber so that 
@@ -91,10 +95,25 @@ defined as the type of rock falling, the index of the jet pattern, and the locat
 the floor). Then, since we know what happens during this repeating section, we can loop over this repeating part without
 actually simulating each rock fall.
 
-
 ## Day 18
 For part 1, for each cube, count how many of the adjoining cubes are in the droplet. For part 2, consider a graph where 
 each empty point (i.e. each point not part of the droplet) is a node, and the edges connect adjoining empty points. 
 (It suffices to  consider all empty points that are at within 1 unit of the minimum and maximum extent of the droplet in each dimension.) Find 
 the connected components of this graph. Then iterate over these components to find the unique component containing a point outside 
 the droplet. All other components are interior to the droplet.
+
+## Day 20
+Use a doubly-linked list. Note that if the number `n`  of positions to move is greater than the length of the array `arr`, 
+we must move `n % (len(arr) - 1)` positions (because each time we move one position, we pass one member of the array, 
+so after moving `len(arr) - 1` positions we have passed all other members of the array are back in the original position).
+
+## Day 21
+The task is to evaluate an expression given in the form of a binary tree. For part 1, use in-order traversal. For part 2, 
+we need to solve an equation where `humn` represents the unknown value. Before traversing the tree, change the value of 
+node `humn` to `np.nan`, and during the traversal find the path from `root` to `humn`. Then we can solve the equation 
+by reversing the operations in this path.
+
+
+## Day 23
+Simulate the moves, using a set to keep track of elves positions (for faster checking).
+
