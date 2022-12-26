@@ -1,7 +1,8 @@
-from utilities import *
+from utilities import parse_single_string
 import re
+import numpy as np
 
-arr = parse_single_string(use_test_file=False)
+arr = parse_single_string()
 row_start = []
 row_width = []
 max_width = max([len(a) for a in arr[:-2]])

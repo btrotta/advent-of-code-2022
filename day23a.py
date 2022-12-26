@@ -1,7 +1,7 @@
-from utilities import *
+from utilities import parse_01
 from collections import Counter
 
-arr = parse_01(use_test_file=False)
+arr = parse_01()
 elves = set()
 for row in range(len(arr)):
     for col in range(len(arr[0])):
