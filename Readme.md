@@ -113,7 +113,16 @@ we need to solve an equation where `humn` represents the unknown value. Before t
 node `humn` to `np.nan`, and during the traversal find the path from `root` to `humn`. Then we can solve the equation 
 by reversing the operations in this path.
 
+## Day 22
+Simulate the moves. Use a set for the walls to make checks efficient. For part 2, this code only works for my particular 
+pattern, I couldn't figure out the general case.
 
 ## Day 23
 Simulate the moves, using a set to keep track of elves positions (for faster checking).
 
+## Day 24
+The pattern of blizzards on the grids repeats after a cycle of `lcm(width, height)`
+minutes (where `lcm` is the lowest common multiple). Iterate over `t`, the number of minutes from the start. Keep track 
+of the combination of location and cycle iteration already seen (where cycle iteration is `t % lcm(width, height)`, 
+since we do not need to check these again. At each step, calculate the new possible combinations 
+of locations and cycle step. Stop when we reach the goal.
