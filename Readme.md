@@ -126,3 +126,8 @@ minutes (where `lcm` is the lowest common multiple). Iterate over `t`, the numbe
 of the combination of location and cycle iteration already seen (where cycle iteration is `t % lcm(width, height)`, 
 since we do not need to check these again. At each step, calculate the new possible combinations 
 of locations and cycle step. Stop when we reach the goal.
+
+## Day 25
+Use the usual algorithm for converting bases to convert the decimal answer to base 5. To convert to SNAFU, iterate 
+over the base-5 digits starting at the right, and if we encounter a 3 or 4, convert it to `=` or `-` and add one to 
+the digit on the left.
